@@ -69,10 +69,12 @@ public class EditorTexto {
 		menuBar.add(mnArchivo);
 		
 		JMenuItem mntmNuevo = new JMenuItem("Nuevo");
+		mntmNuevo.setIcon(null);
 		mntmNuevo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
 		mnArchivo.add(mntmNuevo);
 		
 		JMenuItem mntmAbrir = new JMenuItem("Abrir");
+		mntmAbrir.setIcon(null);
 		mnArchivo.add(mntmAbrir);
 		
 		JMenuItem mntmGuardar = new JMenuItem("Guardar");
@@ -128,9 +130,33 @@ public class EditorTexto {
 		comboFonts.setSelectedIndex(2);
 		toolBar.add(comboFonts);
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/bold-solid.png")));
-		toolBar.add(btnNewButton);
+		JButton btnBold = new JButton("");
+		btnBold.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/bold-solid.png")));
+		toolBar.add(btnBold);
+		
+		JButton btnItalic = new JButton("");
+		btnItalic.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/italic-solid.png")));
+		toolBar.add(btnItalic);
+		
+		JButton btnUndearline = new JButton("");
+		btnUndearline.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/underline-solid.png")));
+		toolBar.add(btnUndearline);
+		
+		JButton btnAlignLeft = new JButton("");
+		btnAlignLeft.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/align-left-solid.png")));
+		toolBar.add(btnAlignLeft);
+		
+		JButton btnAlignCenter = new JButton("");
+		btnAlignCenter.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/align-center-solid.png")));
+		toolBar.add(btnAlignCenter);
+		
+		JButton btnAlignRight = new JButton("");
+		btnAlignRight.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/align-right-solid.png")));
+		toolBar.add(btnAlignRight);
+		
+		JButton btnAlignJustify = new JButton("");
+		btnAlignJustify.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/align-justify-solid.png")));
+		toolBar.add(btnAlignJustify);
 		
 		JPanel panelTextArea = new JPanel();
 		frame.getContentPane().add(panelTextArea, BorderLayout.CENTER);
