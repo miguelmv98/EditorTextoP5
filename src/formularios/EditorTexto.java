@@ -15,6 +15,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
 import javax.swing.JTextPane;
 import javax.swing.JSeparator;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 public class EditorTexto {
 
@@ -49,7 +54,7 @@ public class EditorTexto {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 1600, 1250);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panelMenuArea = new JPanel();
@@ -117,6 +122,15 @@ public class EditorTexto {
 		
 		JToolBar toolBar = new JToolBar();
 		panelMenuArea.add(toolBar);
+		
+		JComboBox comboFonts = new JComboBox();
+		comboFonts.setModel(new DefaultComboBoxModel(new String[] {"Arial", "Segoe UI", "Tahoma", "Times New Roman"}));
+		comboFonts.setSelectedIndex(2);
+		toolBar.add(comboFonts);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/bold-solid.png")));
+		toolBar.add(btnNewButton);
 		
 		JPanel panelTextArea = new JPanel();
 		frame.getContentPane().add(panelTextArea, BorderLayout.CENTER);
