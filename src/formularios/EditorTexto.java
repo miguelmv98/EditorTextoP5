@@ -144,7 +144,13 @@ public class EditorTexto implements ActionListener {
 		
 		JMenuItem mntmBuscarTexto = new JMenuItem("Buscar");
 		mntmBuscarTexto.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_DOWN_MASK));
+		mntmBuscarTexto.addActionListener(this);
 		mnEdicion.add(mntmBuscarTexto);
+		
+		JMenuItem mntmReemplazar = new JMenuItem("Reemplazar");
+		mntmReemplazar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_DOWN_MASK));
+		mntmReemplazar.addActionListener(this);
+		mnEdicion.add(mntmReemplazar);
 		
 		JMenu mnFormato = new JMenu("Formato");
 		mnFormato.setMnemonic('F');
@@ -269,6 +275,12 @@ public class EditorTexto implements ActionListener {
 			case "Justificada":
 				alinearJustificada();
 				break;
+			case "Buscar":
+				buscar();
+				break;
+			case "Reemplazar":
+				reemplazar();
+				break;
 			default:
 		}
 	}
@@ -324,6 +336,20 @@ public class EditorTexto implements ActionListener {
 		actualizarParrafo(atributos);
 		lblBarraEstado.setText("Parrafo alineado justificado");
 	}
+	private void buscar() {
+		System.out.println("funciona?");
+		
+		Buscar popUpBuscar = new Buscar(frame, textPane);
+	    popUpBuscar.setLocationRelativeTo(frame);
+	    popUpBuscar.setVisible(true);
+    }
+	private void reemplazar() {
+		System.out.println("funciona?");
+		
+		Reemplazar popUpReemplazar = new Reemplazar(frame, textPane);
+		popUpReemplazar.setLocationRelativeTo(frame);
+		popUpReemplazar.setVisible(true);
+    }
 	private void actualizarCaracteres(SimpleAttributeSet atributos) {
 		int inicioSeleccion = textPane.getSelectionStart();
 		int finSeleccion = textPane.getSelectionEnd();
