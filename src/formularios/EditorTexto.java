@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
@@ -31,9 +32,13 @@ import javax.swing.text.StyledDocument;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DateFormat.Field;
+
 import javax.swing.JLabel;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class EditorTexto implements ActionListener {
 
@@ -161,22 +166,49 @@ public class EditorTexto implements ActionListener {
 		mnFormato.setMnemonic('F');
 		menuBar.add(mnFormato);
 		
-		JMenu mnNewMenu_1 = new JMenu("Tamaño");
-		mnFormato.add(mnNewMenu_1);
+		JMenu mnTamaño = new JMenu("Tamaño");
+		mnFormato.add(mnTamaño);
 		
-		JMenu mnNewMenu = new JMenu("Color");
-		mnFormato.add(mnNewMenu);
+		JMenuItem mntmTamaño11 = new JMenuItem("11");
+		mntmTamaño11.addActionListener(this);
+		mnTamaño.add(mntmTamaño11);
+		
+		JMenuItem mntmTamaño12 = new JMenuItem("12");
+		mntmTamaño12.addActionListener(this);
+		mnTamaño.add(mntmTamaño12);
+		
+		JMenuItem mntmTamaño14 = new JMenuItem("14");
+		mntmTamaño14.addActionListener(this);
+		mnTamaño.add(mntmTamaño14);
+		
+		JMenu mnColor = new JMenu("Color");
+		mnFormato.add(mnColor);
+		
+		JMenuItem mntmColorNegro = new JMenuItem("Negro");
+		mntmColorNegro.addActionListener(this);
+		mnColor.add(mntmColorNegro);
+		
+		JMenuItem mntmColorAzul = new JMenuItem("Azul");
+		mntmColorAzul.addActionListener(this);
+		mnColor.add(mntmColorAzul);
+		
+		JMenuItem mntmColorRojo = new JMenuItem("Rojo");
+		mntmColorRojo.addActionListener(this);
+		mnColor.add(mntmColorRojo);
 		
 		JMenu mnTipoLetra = new JMenu("Tipo de fuente");
 		mnFormato.add(mnTipoLetra);
 		
 		JMenuItem mntmFontArial = new JMenuItem("Arial");
+		mntmFontArial.addActionListener(this);
 		mnTipoLetra.add(mntmFontArial);
 		
 		JMenuItem mntmFontSegoe = new JMenuItem("Segoe UI");
+		mntmFontSegoe.addActionListener(this);
 		mnTipoLetra.add(mntmFontSegoe);
 		
 		JMenuItem mntmTahoma = new JMenuItem("Tahoma");
+		mntmTahoma.addActionListener(this);
 		mnTipoLetra.add(mntmTahoma);
 		
 		JMenu mnEstilo = new JMenu("Estilo");
@@ -201,9 +233,18 @@ public class EditorTexto implements ActionListener {
 		panelMenuArea.add(toolBar);
 		
 		JComboBox comboFonts = new JComboBox();
+		
 		comboFonts.setMaximumSize(new Dimension(300, 32767));
-		comboFonts.setModel(new DefaultComboBoxModel(new String[] {"Arial", "Segoe UI", "Tahoma", "Times New Roman"}));
+		comboFonts.setModel(new DefaultComboBoxModel(new String[] {"Arial", "Segoe UI", "Tahoma"}));
 		comboFonts.setSelectedIndex(2);
+		
+		comboFonts.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == ItemEvent.SELECTED) {
+					cambiarFuente(comboFonts.getSelectedItem().toString());
+				}
+			}
+		});
 		toolBar.add(comboFonts);
 		
 		JButton btnBold = new JButton("");
@@ -281,6 +322,7 @@ public class EditorTexto implements ActionListener {
 		panelTextArea.setLayout(new BorderLayout(0, 0));
 		
 		textPane = new JTextPane();
+		textPane.isRequestFocusEnabled();
 		panelTextArea.add(textPane);
 		
 		lblBarraEstado = new JLabel("Editor de texto abierto");
@@ -331,6 +373,33 @@ public class EditorTexto implements ActionListener {
 				break;
 			case "Reemplazar":
 				reemplazar();
+				break;
+			case "11":
+				cambiarTamaño(11);
+				break;
+			case "12":
+				cambiarTamaño(12);
+				break;
+			case "14":
+				cambiarTamaño(14);
+				break;
+			case "Negro":
+				cambiarColor(Color.BLACK,"Negro");
+				break;
+			case "Azul":
+				cambiarColor(Color.BLUE,"Azul");
+				break;
+			case "Rojo":
+				cambiarColor(Color.RED,"Rojo");
+				break;
+			case "Arial":
+				cambiarFuente("Arial");
+				break;
+			case "Segoe UI":
+				cambiarFuente("Segoe UI");
+				break;
+			case "Tahoma":
+				cambiarFuente("Tahoma");
 				break;
 			case "Negrita":
 				alternarTextoNegrita();
@@ -397,8 +466,6 @@ public class EditorTexto implements ActionListener {
 		lblBarraEstado.setText("Parrafo alineado justificado");
 	}
 	private void buscar() {
-		System.out.println("funciona?");
-		
 		Buscar popUpBuscar = new Buscar(frame, textPane);
 	    popUpBuscar.setLocationRelativeTo(frame);
 	    popUpBuscar.setVisible(true);
@@ -410,6 +477,24 @@ public class EditorTexto implements ActionListener {
 		popUpReemplazar.setLocationRelativeTo(frame);
 		popUpReemplazar.setVisible(true);
     }
+	private void cambiarTamaño(int nuevoTamaño) {
+		SimpleAttributeSet atributos = new SimpleAttributeSet();
+		StyleConstants.setFontSize(atributos, nuevoTamaño);
+		actualizarCaracteres(atributos);
+		lblBarraEstado.setText("Tamaño letra " + nuevoTamaño);
+	}
+	private void cambiarColor(Color nuevoColor,String nombreColor) {
+		SimpleAttributeSet atributos = new SimpleAttributeSet();
+		StyleConstants.setForeground(atributos, nuevoColor);
+		actualizarParrafo(atributos);
+		lblBarraEstado.setText("Color " + nombreColor);
+	}
+	private void cambiarFuente(String nuevaFont) {
+		SimpleAttributeSet atributos = new SimpleAttributeSet();
+		StyleConstants.setFontFamily(atributos, nuevaFont);
+		actualizarCaracteres(atributos);
+		lblBarraEstado.setText("Tipo de letra " + nuevaFont);
+	}
 	private void alternarTextoNegrita() {
 		SimpleAttributeSet atributos = new SimpleAttributeSet();
 		StyleConstants.setBold(atributos, !StyleConstants.isBold(getSelectedTextAttributes()));
