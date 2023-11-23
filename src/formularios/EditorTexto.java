@@ -131,31 +131,31 @@ public class EditorTexto {
 		toolBar.add(comboFonts);
 		
 		JButton btnBold = new JButton("");
-		btnBold.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/bold-solid.png")));
+		btnBold.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/bold.png")));
 		toolBar.add(btnBold);
 		
 		JButton btnItalic = new JButton("");
-		btnItalic.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/italic-solid.png")));
+		btnItalic.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/italic.png")));
 		toolBar.add(btnItalic);
 		
 		JButton btnUndearline = new JButton("");
-		btnUndearline.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/underline-solid.png")));
+		btnUndearline.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/underline.png")));
 		toolBar.add(btnUndearline);
 		
 		JButton btnAlignLeft = new JButton("");
-		btnAlignLeft.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/align-left-solid.png")));
+		btnAlignLeft.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/align-left.png")));
 		toolBar.add(btnAlignLeft);
 		
 		JButton btnAlignCenter = new JButton("");
-		btnAlignCenter.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/align-center-solid.png")));
+		btnAlignCenter.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/align-center.png")));
 		toolBar.add(btnAlignCenter);
 		
 		JButton btnAlignRight = new JButton("");
-		btnAlignRight.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/align-right-solid.png")));
+		btnAlignRight.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/align-right.png")));
 		toolBar.add(btnAlignRight);
 		
 		JButton btnAlignJustify = new JButton("");
-		btnAlignJustify.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/align-justify-solid.png")));
+		btnAlignJustify.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/align-justify.png")));
 		toolBar.add(btnAlignJustify);
 		
 		JPanel panelTextArea = new JPanel();
