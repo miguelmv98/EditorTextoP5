@@ -32,6 +32,8 @@ import javax.swing.text.StyledDocument;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
+import java.awt.Component;
+import java.awt.Dimension;
 
 public class EditorTexto implements ActionListener {
 
@@ -199,6 +201,7 @@ public class EditorTexto implements ActionListener {
 		panelMenuArea.add(toolBar);
 		
 		JComboBox comboFonts = new JComboBox();
+		comboFonts.setMaximumSize(new Dimension(300, 32767));
 		comboFonts.setModel(new DefaultComboBoxModel(new String[] {"Arial", "Segoe UI", "Tahoma", "Times New Roman"}));
 		comboFonts.setSelectedIndex(2);
 		toolBar.add(comboFonts);
