@@ -122,6 +122,39 @@ public class EditorTexto {
 		JMenu mnFormato = new JMenu("Formato");
 		menuBar.add(mnFormato);
 		
+		JMenu mnNewMenu_1 = new JMenu("Tamaño");
+		mnFormato.add(mnNewMenu_1);
+		
+		JMenu mnNewMenu = new JMenu("Color");
+		mnFormato.add(mnNewMenu);
+		
+		JMenu mnTipoLetra = new JMenu("Tipo de fuente");
+		mnFormato.add(mnTipoLetra);
+		
+		JMenuItem mntmFontArial = new JMenuItem("Arial");
+		mnTipoLetra.add(mntmFontArial);
+		
+		JMenuItem mntmFontSegoe = new JMenuItem("Segoe UI");
+		mnTipoLetra.add(mntmFontSegoe);
+		
+		JMenuItem mntmTahoma = new JMenuItem("Tahoma");
+		mnTipoLetra.add(mntmTahoma);
+		
+		JMenu mnEstilo = new JMenu("Estilo");
+		mnFormato.add(mnEstilo);
+		
+		JMenuItem mntmEstiloNegrita = new JMenuItem("Negrita");
+		mntmEstiloNegrita.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK));
+		mnEstilo.add(mntmEstiloNegrita);
+		
+		JMenuItem mntmEstiloCursiva = new JMenuItem("Cursiva");
+		mntmEstiloCursiva.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_DOWN_MASK));
+		mnEstilo.add(mntmEstiloCursiva);
+		
+		JMenuItem mntmSubrayado = new JMenuItem("Subrayado");
+		mntmSubrayado.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK));
+		mnEstilo.add(mntmSubrayado);
+		
 		JToolBar toolBar = new JToolBar();
 		panelMenuArea.add(toolBar);
 		
