@@ -22,7 +22,10 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.Element;
 import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
@@ -179,15 +182,18 @@ public class EditorTexto implements ActionListener {
 		
 		JMenuItem mntmEstiloNegrita = new JMenuItem("Negrita");
 		mntmEstiloNegrita.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_DOWN_MASK));
+		mntmEstiloNegrita.addActionListener(this);
 		mnEstilo.add(mntmEstiloNegrita);
 		
 		JMenuItem mntmEstiloCursiva = new JMenuItem("Cursiva");
 		mntmEstiloCursiva.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_DOWN_MASK));
+		mntmEstiloCursiva.addActionListener(this);
 		mnEstilo.add(mntmEstiloCursiva);
 		
-		JMenuItem mntmSubrayado = new JMenuItem("Subrayado");
-		mntmSubrayado.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK));
-		mnEstilo.add(mntmSubrayado);
+		JMenuItem mntmEstiloSubrayado = new JMenuItem("Subrayado");
+		mntmEstiloSubrayado.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK));
+		mntmEstiloSubrayado.addActionListener(this);
+		mnEstilo.add(mntmEstiloSubrayado);
 		
 		JToolBar toolBar = new JToolBar();
 		panelMenuArea.add(toolBar);
@@ -198,30 +204,72 @@ public class EditorTexto implements ActionListener {
 		toolBar.add(comboFonts);
 		
 		JButton btnBold = new JButton("");
+		btnBold.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				alternarTextoNegrita();
+			}
+		});
 		btnBold.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/bold.png")));
 		toolBar.add(btnBold);
 		
 		JButton btnItalic = new JButton("");
+		btnItalic.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				alternarTextoCursiva();
+			}
+		});
 		btnItalic.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/italic.png")));
 		toolBar.add(btnItalic);
 		
 		JButton btnUndearline = new JButton("");
+		btnUndearline.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				alternarTextoSubrayado();
+			}
+		});
 		btnUndearline.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/underline.png")));
 		toolBar.add(btnUndearline);
 		
 		JButton btnAlignLeft = new JButton("");
+		btnAlignLeft.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				alinearIzquierda();
+			}
+		});
 		btnAlignLeft.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/align-left.png")));
 		toolBar.add(btnAlignLeft);
 		
 		JButton btnAlignCenter = new JButton("");
+		btnAlignCenter.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				alinearCentrada();
+			}
+		});
 		btnAlignCenter.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/align-center.png")));
 		toolBar.add(btnAlignCenter);
 		
 		JButton btnAlignRight = new JButton("");
+		btnAlignRight.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				alinearDerecha();
+			}
+		});
 		btnAlignRight.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/align-right.png")));
 		toolBar.add(btnAlignRight);
 		
 		JButton btnAlignJustify = new JButton("");
+		btnAlignJustify.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				alinearJustificada();
+			}
+		});
 		btnAlignJustify.setIcon(new ImageIcon(EditorTexto.class.getResource("/imagenes/align-justify.png")));
 		toolBar.add(btnAlignJustify);
 		
@@ -280,6 +328,15 @@ public class EditorTexto implements ActionListener {
 				break;
 			case "Reemplazar":
 				reemplazar();
+				break;
+			case "Negrita":
+				alternarTextoNegrita();
+				break;
+			case "Cursiva":
+				alternarTextoCursiva();
+				break;
+			case "Subrayado":
+				alternarTextoSubrayado();
 				break;
 			default:
 		}
@@ -350,6 +407,24 @@ public class EditorTexto implements ActionListener {
 		popUpReemplazar.setLocationRelativeTo(frame);
 		popUpReemplazar.setVisible(true);
     }
+	private void alternarTextoNegrita() {
+		SimpleAttributeSet atributos = new SimpleAttributeSet();
+		StyleConstants.setBold(atributos, !StyleConstants.isBold(getSelectedTextAttributes()));
+		actualizarCaracteres(atributos);
+		lblBarraEstado.setText("Cambio negrita de caracteres");
+	}
+	private void alternarTextoCursiva() {
+		SimpleAttributeSet atributos = new SimpleAttributeSet();
+		StyleConstants.setItalic(atributos,!StyleConstants.isItalic(getSelectedTextAttributes()));
+		actualizarCaracteres(atributos);
+		lblBarraEstado.setText("Cambio negrita de caracteres");
+	}
+	private void alternarTextoSubrayado() {
+		SimpleAttributeSet atributos = new SimpleAttributeSet();
+		StyleConstants.setUnderline(atributos,!StyleConstants.isUnderline(getSelectedTextAttributes()));
+		actualizarCaracteres(atributos);
+		lblBarraEstado.setText("Cambio negrita de caracteres");
+	}
 	private void actualizarCaracteres(SimpleAttributeSet atributos) {
 		int inicioSeleccion = textPane.getSelectionStart();
 		int finSeleccion = textPane.getSelectionEnd();
@@ -361,5 +436,10 @@ public class EditorTexto implements ActionListener {
 		int finSeleccion = textPane.getSelectionEnd();
 		int longitudSeleccion = finSeleccion - inicioSeleccion;
 		textPane.getStyledDocument().setParagraphAttributes(inicioSeleccion, longitudSeleccion, atributos, false);
+	}
+	private AttributeSet getSelectedTextAttributes() {
+		StyledDocument doc = textPane.getStyledDocument();
+		Element element = doc.getCharacterElement(textPane.getSelectionStart());
+		return element.getAttributes();
 	}
 }
