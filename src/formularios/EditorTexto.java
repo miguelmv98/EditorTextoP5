@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.JMenuBar;
 import javax.swing.JToolBar;
@@ -28,6 +29,8 @@ import javax.swing.text.StyledDocument;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DateFormat.Field;
+
 import javax.swing.JLabel;
 
 public class EditorTexto implements ActionListener {
@@ -159,19 +162,46 @@ public class EditorTexto implements ActionListener {
 		JMenu mnNewMenu_1 = new JMenu("Tamaño");
 		mnFormato.add(mnNewMenu_1);
 		
+		JMenuItem mntmTamaño1 = new JMenuItem("11");
+		mntmTamaño1.addActionListener(this);
+		mnNewMenu_1.add(mntmTamaño1);
+		
+		JMenuItem mntmTamaño2 = new JMenuItem("12");
+		mntmTamaño2.addActionListener(this);
+		mnNewMenu_1.add(mntmTamaño2);
+		
+		JMenuItem mntmTamaño3 = new JMenuItem("14");
+		mntmTamaño3.addActionListener(this);
+		mnNewMenu_1.add(mntmTamaño3);
+		
 		JMenu mnNewMenu = new JMenu("Color");
 		mnFormato.add(mnNewMenu);
+		
+		JMenuItem mntmColor1 = new JMenuItem("Negro");
+		mntmColor1.addActionListener(this);
+		mnNewMenu.add(mntmColor1);
+		
+		JMenuItem mntmColor2 = new JMenuItem("Azul");
+		mntmColor2.addActionListener(this);
+		mnNewMenu.add(mntmColor2);
+		
+		JMenuItem mntmColor3 = new JMenuItem("Rojo");
+		mntmColor3.addActionListener(this);
+		mnNewMenu.add(mntmColor3);
 		
 		JMenu mnTipoLetra = new JMenu("Tipo de fuente");
 		mnFormato.add(mnTipoLetra);
 		
 		JMenuItem mntmFontArial = new JMenuItem("Arial");
+		mntmFontArial.addActionListener(this);
 		mnTipoLetra.add(mntmFontArial);
 		
 		JMenuItem mntmFontSegoe = new JMenuItem("Segoe UI");
+		mntmFontSegoe.addActionListener(this);
 		mnTipoLetra.add(mntmFontSegoe);
 		
 		JMenuItem mntmTahoma = new JMenuItem("Tahoma");
+		mntmTahoma.addActionListener(this);
 		mnTipoLetra.add(mntmTahoma);
 		
 		JMenu mnEstilo = new JMenu("Estilo");
@@ -281,6 +311,33 @@ public class EditorTexto implements ActionListener {
 			case "Reemplazar":
 				reemplazar();
 				break;
+			case "11":
+				tamaño(11);
+				break;
+			case "12":
+				tamaño(12);
+				break;
+			case "14":
+				tamaño(14);
+				break;
+			case "Negro":
+				color(Color.BLACK);
+				break;
+			case "Azul":
+				color(Color.BLUE);
+				break;
+			case "Rojo":
+				color(Color.RED);
+				break;
+			case "Arial":
+				font("Arial");
+				break;
+			case "Segoe UI":
+				font("Segoe UI");
+				break;
+			case "Tahoma":
+				font("Tahoma");
+				break;
 			default:
 		}
 	}
@@ -337,8 +394,6 @@ public class EditorTexto implements ActionListener {
 		lblBarraEstado.setText("Parrafo alineado justificado");
 	}
 	private void buscar() {
-		System.out.println("funciona?");
-		
 		Buscar popUpBuscar = new Buscar(frame, textPane);
 	    popUpBuscar.setLocationRelativeTo(frame);
 	    popUpBuscar.setVisible(true);
@@ -361,5 +416,23 @@ public class EditorTexto implements ActionListener {
 		int finSeleccion = textPane.getSelectionEnd();
 		int longitudSeleccion = finSeleccion - inicioSeleccion;
 		textPane.getStyledDocument().setParagraphAttributes(inicioSeleccion, longitudSeleccion, atributos, false);
+	}
+	private void tamaño(int nuevoTamaño) {
+		SimpleAttributeSet atributos = new SimpleAttributeSet();
+		StyleConstants.setFontSize(atributos, nuevoTamaño);
+		actualizarCaracteres(atributos);
+		lblBarraEstado.setText("Tamaño letra " + nuevoTamaño);
+	}
+	private void color(Color nuevoColor) {
+		SimpleAttributeSet atributos = new SimpleAttributeSet();
+		StyleConstants.setForeground(atributos, nuevoColor);
+		actualizarParrafo(atributos);
+		lblBarraEstado.setText("Color " + nuevoColor);
+	}
+	private void font(String nuevaFont) {
+		SimpleAttributeSet atributos = new SimpleAttributeSet();
+		StyleConstants.setFontFamily(atributos, nuevaFont);
+		actualizarCaracteres(atributos);
+		lblBarraEstado.setText("Tipo de letra " + nuevaFont);
 	}
 }
